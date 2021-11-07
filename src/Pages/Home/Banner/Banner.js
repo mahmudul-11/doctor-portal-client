@@ -29,7 +29,7 @@ const Banner = () => {
                         <Typography variant='h6' sx={{ color: 'text.secondary', fontSize: 14, fontWeight: 300 }}>
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis omnis aut ipsa, nihil ipsam iure dolore nemo illum dolor deleniti!
                         </Typography>
-                        <Button variant='contained' style={{ backgroundColor: '#46C7C3' }}>Get Appointment</Button>
+                        <Button variant='contained' style={{ backgroundColor: '#3ba9a4' }}>Get Appointment</Button>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6} lg={6} style={varticalCenter}>
