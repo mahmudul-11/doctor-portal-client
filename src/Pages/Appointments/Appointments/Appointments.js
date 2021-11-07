@@ -6,12 +6,12 @@ import AvailableAppointments from '../AvailableAppointments/AvailableAppointment
 const Appointments = () => {
     const [date, setDate] = React.useState(new Date());
     return (
-        <div>
+        <>
             <Navigation></Navigation>
             <AppointmentsHeader date={date} setDate={setDate} />
             <AvailableAppointments date={date} />
 
-        </div>
+        </>
     );
 };
 
