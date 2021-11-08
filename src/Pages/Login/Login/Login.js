@@ -1,12 +1,15 @@
 import { Alert, Button, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import login from '../../../images/login.png'
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
-    const { user, registerUser, loginUser, logOut, isLoading, authError } = useAuth();
+    const location = useLocation();
+    const history = useHistory();
+    const { user, registerUser, loginUser, logOut, isLoading, authError, signInWithGoogle } = useAuth();
+
     const handleOnChange = e => {
         const field = e.target.name;
         const value = e.target.value;
@@ -16,8 +19,11 @@ const Login = () => {
         console.log(loginData);
     }
     const loginFormSubmitHandler = e => {
-        loginUser(loginData.email, loginData.password)
+        loginUser(loginData.email, loginData.password, location, history)
         e.preventDefault();
+    }
+    const googleSingInHandle = () => {
+        signInWithGoogle(location, history);
     }
     return (
         <Grid container spacing={2}>
@@ -32,6 +38,7 @@ const Login = () => {
                     <NavLink to='/register' style={{ textDecoration: 'none', fontSize: '12px' }}>
                         <Button variant="text">New user? Please Register</Button>
                     </NavLink>
+                    <Button variant="contained" onClick={googleSingInHandle}>Google Signin</Button>
                 </form>
                 {
                     user?.email && <Alert severity="success"  >
