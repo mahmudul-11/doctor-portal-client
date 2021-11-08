@@ -38,7 +38,8 @@ const Login = () => {
                     <NavLink to='/register' style={{ textDecoration: 'none', fontSize: '12px' }}>
                         <Button variant="text">New user? Please Register</Button>
                     </NavLink>
-                    <Button variant="contained" onClick={googleSingInHandle}>Google Signin</Button>
+                    <Typography> ------------------------------------------------------------------------</Typography>
+                    <Button variant="contained" sx={{ width: '75%', m: 1 }} onClick={googleSingInHandle}>Google Signin</Button>
                 </form>
                 {
                     user?.email && <Alert severity="success"  >
