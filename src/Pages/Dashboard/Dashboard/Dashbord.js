@@ -19,15 +19,19 @@ import { Button, Grid } from '@mui/material';
 import Calender from '../../Shared/Calender/Calender';
 import ShowAppointments from '../ShowAppointmnets/ShowAppointments';
 import setDate from 'date-fns/setDate';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom';
+import DashboardHome from '../DashboardHome/DashboardHome';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import AddDoctor from '../AddDoctor/AddDoctor';
+
 
 const drawerWidth = 200;
 
-function ResponsiveDrawer(props) {
+function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [date, setDate] = React.useState(new Date());
 
+    let { path, url } = useRouteMatch(); // nested routing er jonno 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -38,6 +42,15 @@ function ResponsiveDrawer(props) {
             {/* <Divider /> */}
             <Link style={{ textDecoration: 'none', color: 'success' }} to='/appointments'>
                 <Button color="inherit" >Add Appointments</Button>
+            </Link>
+            <Link to={`${url}`}>
+                <Button color="inherit" >Dashboard</Button>
+            </Link>
+            <Link to={`${url}/makeAdmin`}>
+                <Button color="inherit" >Make Admin</Button>
+            </Link>
+            <Link to={`${url}/addDoctor`}>
+                <Button color="inherit" >Add Doctor</Button>
             </Link>
             <List >
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -121,18 +134,19 @@ function ResponsiveDrawer(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Typography paragraph>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={5}>
-                            <Calender
-                                date={date} setDate={setDate}
-                            ></Calender>
-                        </Grid>
-                        <Grid item xs={12} md={7}>
-                            <ShowAppointments date={date}></ShowAppointments>
-                        </Grid>
-                    </Grid>
-                </Typography>
+
+                <Switch>
+                    <Route exact path={path}>
+                        <DashboardHome></DashboardHome>
+                    </Route>
+                    <Route path={`${path}/makeAdmin`} >
+                        <MakeAdmin></MakeAdmin>
+                    </Route>
+                    <Route path={`${path}/addDoctor`} >
+                        <AddDoctor></AddDoctor>
+                    </Route>
+                </Switch>
+
 
 
             </Box>
@@ -140,7 +154,7 @@ function ResponsiveDrawer(props) {
     );
 }
 
-ResponsiveDrawer.propTypes = {
+Dashboard.propTypes = {
     /**
      * Injected by the documentation to work in an iframe.
      * You won't need it on your project.
@@ -148,4 +162,4 @@ ResponsiveDrawer.propTypes = {
     window: PropTypes.func,
 };
 
-export default ResponsiveDrawer;
+export default Dashboard;
