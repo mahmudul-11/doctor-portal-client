@@ -23,6 +23,8 @@ import { BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch 
 import DashboardHome from '../DashboardHome/DashboardHome';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AddDoctor from '../AddDoctor/AddDoctor';
+import useAuth from '../../../hooks/useAuth';
+import AdminRoute from '../../Login/AdminRoute/AdminRoute';
 
 
 const drawerWidth = 200;
@@ -30,6 +32,7 @@ const drawerWidth = 200;
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { admin } = useAuth();
 
     let { path, url } = useRouteMatch(); // nested routing er jonno 
     const handleDrawerToggle = () => {
@@ -46,12 +49,17 @@ function Dashboard(props) {
             <Link to={`${url}`}>
                 <Button color="inherit" >Dashboard</Button>
             </Link>
-            <Link to={`${url}/makeAdmin`}>
-                <Button color="inherit" >Make Admin</Button>
-            </Link>
-            <Link to={`${url}/addDoctor`}>
-                <Button color="inherit" >Add Doctor</Button>
-            </Link>
+            {
+                admin && <Box>
+                    <Link to={`${url}/makeAdmin`}>
+                        <Button color="inherit" >Make Admin</Button>
+                    </Link>
+                    <Link to={`${url}/addDoctor`}>
+                        <Button color="inherit" >Add Doctor</Button>
+                    </Link>
+                </Box>
+            }
+
             <List >
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text}>
@@ -139,12 +147,12 @@ function Dashboard(props) {
                     <Route exact path={path}>
                         <DashboardHome></DashboardHome>
                     </Route>
-                    <Route path={`${path}/makeAdmin`} >
+                    <AdminRoute path={`${path}/makeAdmin`} >
                         <MakeAdmin></MakeAdmin>
-                    </Route>
-                    <Route path={`${path}/addDoctor`} >
+                    </AdminRoute>
+                    <AdminRoute path={`${path}/addDoctor`} >
                         <AddDoctor></AddDoctor>
-                    </Route>
+                    </AdminRoute>
                 </Switch>
 
 

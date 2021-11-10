@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initilizeFirebase from "../Pages/Login/Login/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged, updateProfile, getIdToken, signOut } from "firebase/auth";
 
 
 
@@ -10,6 +10,8 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
+    const [admin, setAdmin] = useState(false);
+    const [token, setToken] = useState('');
 
     const registerUser = (email, password, name, history) => {
         setIsLoading(true);
@@ -79,6 +81,11 @@ const useFirebase = () => {
 
                 const uid = user.uid;
                 setUser(user);
+                // JWT Token related code 
+                getIdToken(user)
+                    .then(idToken => {
+                        setToken(idToken);
+                    })
             } else {
                 setUser({});
             }
@@ -86,6 +93,15 @@ const useFirebase = () => {
         });
         return () => unsubscribe;
     }, [])
+
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email])
+
+
     const logOut = () => {
         setIsLoading(true);
         signOut(auth).then(() => {
@@ -101,7 +117,7 @@ const useFirebase = () => {
         fetch('http://localhost:5000/users', {
             method: method,
             headers: {
-                'content-type': 'application.json'
+                'content-type': 'application/json'
             },
             body: JSON.stringify(user)
 
@@ -112,7 +128,7 @@ const useFirebase = () => {
     }
 
     return {
-        user, registerUser, loginUser, logOut, isLoading, authError, signInWithGoogle
+        user, admin, token, registerUser, loginUser, logOut, isLoading, authError, signInWithGoogle
     }
 }
 export default useFirebase;
