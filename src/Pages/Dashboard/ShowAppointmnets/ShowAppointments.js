@@ -24,7 +24,7 @@ const ShowAppointments = ({ date }) => {
     }, [date])
     return (
         <div>
-            <Typography variant='h5' sx={{ fontWeight: 700, mb: 3 }}>
+            <Typography variant='h4' sx={{ fontWeight: 700, mb: 3, color: 'green', textAlign: 'center' }}>
                 Appointments: {appointmnets.length}
             </Typography>
 
@@ -33,7 +33,7 @@ const ShowAppointments = ({ date }) => {
                     <TableHead sx={{ backgroundColor: '#08a69e' }}>
                         <TableRow>
                             <TableCell sx={{ fontWeight: 700, color: 'white' }} >Name</TableCell>
-                            <TableCell sx={{ fontWeight: 700, color: 'white' }} align="center">Time</TableCell>
+                            <TableCell sx={{ fontWeight: 700, color: 'white' }} align="center">Customer Email</TableCell>
                             <TableCell sx={{ fontWeight: 700, color: 'white' }} align="center">Action</TableCell>
 
                         </TableRow>
