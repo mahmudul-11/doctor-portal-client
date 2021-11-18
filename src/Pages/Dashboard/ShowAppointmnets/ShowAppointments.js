@@ -7,8 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { IconButton, Typography } from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
 
 const ShowAppointments = ({ date }) => {
     const { user } = useAuth();
@@ -48,9 +49,13 @@ const ShowAppointments = ({ date }) => {
                                     {row.serviceName}
                                 </TableCell>
                                 <TableCell align="center">{row.time}</TableCell>
-                                <TableCell align="center"><IconButton sx={{ color: 'error.main' }} aria-label="delete">
-                                    <DeleteIcon />
-                                </IconButton></TableCell>
+                                <TableCell align="center">
+                                    {row.payment ? 'paid' :
+                                        <Link to={`dashboard/payment/${row._id}`} style={{ textDecoration: 'none' }}>
+                                            <Button variant="outlined" size="small">Pay</Button>
+                                        </Link>
+                                    }
+                                </TableCell>
 
                             </TableRow>
                         ))}

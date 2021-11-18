@@ -25,6 +25,7 @@ import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AddDoctor from '../AddDoctor/AddDoctor';
 import useAuth from '../../../hooks/useAuth';
 import AdminRoute from '../../Login/AdminRoute/AdminRoute';
+import Payment from '../Payment/Payment';
 
 
 const drawerWidth = 200;
@@ -42,34 +43,27 @@ function Dashboard(props) {
     const drawer = (
         <div >
             <Toolbar />
+            <Toolbar />
+            <Toolbar />
             {/* <Divider /> */}
-            <Link style={{ textDecoration: 'none', color: 'success' }} to='/appointments'>
-                <Button color="inherit" >Add Appointments</Button>
+            <Link style={{ textDecoration: 'none', color: 'green' }} to='/appointments'>
+                <Button color="inherit" sx={{ fontWeight: 700 }}>Add Appointments</Button>
             </Link>
-            <Link to={`${url}`}>
-                <Button color="inherit" >Dashboard</Button>
+            <Link to={`${url}`} style={{ textDecoration: 'none', color: 'green' }}>
+                <Button color="inherit" sx={{ fontWeight: 700 }} >Dashboard</Button>
             </Link>
             {
                 admin && <Box>
-                    <Link to={`${url}/makeAdmin`}>
-                        <Button color="inherit" >Make Admin</Button>
+                    <Link to={`${url}/makeAdmin`} style={{ textDecoration: 'none', color: 'green' }}>
+                        <Button color="inherit" sx={{ fontWeight: 700 }} >Make Admin</Button>
                     </Link>
-                    <Link to={`${url}/addDoctor`}>
-                        <Button color="inherit" >Add Doctor</Button>
+                    <Link to={`${url}/addDoctor`} style={{ textDecoration: 'none', color: 'green' }}>
+                        <Button color="inherit" sx={{ fontWeight: 700 }}>Add Doctor</Button>
                     </Link>
                 </Box>
             }
 
-            <List >
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
+
 
         </div>
     );
@@ -146,6 +140,9 @@ function Dashboard(props) {
                 <Switch>
                     <Route exact path={path}>
                         <DashboardHome></DashboardHome>
+                    </Route>
+                    <Route path={`${path}/payment/:appointmentId`} >
+                        <Payment></Payment>
                     </Route>
                     <AdminRoute path={`${path}/makeAdmin`} >
                         <MakeAdmin></MakeAdmin>

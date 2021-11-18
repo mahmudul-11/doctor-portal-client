@@ -22,7 +22,7 @@ const style = {
 };
 
 const BookingModal = ({ openBooking, handleBookingClose, booking, date, setAppoinmentSuccessful }) => {
-    const { name, time, space } = booking;
+    const { name, time, space, price } = booking;
     const { user } = useAuth();
     const initialInfo = { patientName: user.displayName, email: user.email, phone: '' }
     const [bookingInfo, setBookingInfo] = useState(initialInfo); // modal ta state update er jonno
@@ -41,6 +41,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setAppoi
         const appoinmnet = {
             ...bookingInfo,
             time,
+            price,
             serviceName: name,
             date: date.toLocaleDateString()
         }
@@ -86,13 +87,14 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setAppoi
                     <form onSubmit={formSubmitHandle}>
                         <TextField
                             disabled
+                            label='Time slot'
                             sx={{ width: '95%', my: 1 }}
                             id="outlined-size-small"
                             defaultValue={time}
                             size="small"
                         />
                         <TextField
-
+                            label='Your name'
                             sx={{ width: '95%', my: 1 }}
                             id="outlined-size-small"
                             name="patientName" onBlur={handleOnBlur}
@@ -101,7 +103,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setAppoi
                         />
 
                         <TextField
-
+                            label='Your Email'
                             sx={{ width: '95%', my: 1 }}
                             id="outlined-size-small"
                             name="email" onBlur={handleOnBlur}
@@ -109,15 +111,25 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setAppoi
                             size="small"
                         />
                         <TextField
+                            disabled
+                            sx={{ width: '95%', my: 1 }}
+                            id="outlined-size-small"
+                            name="price" onBlur={handleOnBlur}
+                            defaultValue={price}
+                            label='Price in $'
+                            size="small"
+                        />
+                        <TextField
 
                             sx={{ width: '95%', my: 1 }}
                             id="outlined-size-small"
                             name="phone" onBlur={handleOnBlur}
-                            placeholder=' Give your Phone Number'
+                            label='Your Phone Number'
                             size="small"
                         />
                         <TextField
                             disabled
+                            label='Reservation Date'
                             sx={{ width: '95%', my: 1 }}
                             id="outlined-size-small"
                             defaultValue={date.toDateString()}
