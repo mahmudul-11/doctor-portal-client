@@ -28,7 +28,7 @@ import AdminRoute from '../../Login/AdminRoute/AdminRoute';
 import Payment from '../Payment/Payment';
 
 
-const drawerWidth = 200;
+const drawerWidth = 190;
 
 function Dashboard(props) {
     const { window } = props;
@@ -47,18 +47,18 @@ function Dashboard(props) {
             <Toolbar />
             {/* <Divider /> */}
             <Link style={{ textDecoration: 'none', color: 'green' }} to='/appointments'>
-                <Button color="inherit" sx={{ fontWeight: 700 }}>Add Appointments</Button>
+                <Button color="inherit" sx={{ fontWeight: 800 }}>Add Appointments</Button>
             </Link>
             <Link to={`${url}`} style={{ textDecoration: 'none', color: 'green' }}>
-                <Button color="inherit" sx={{ fontWeight: 700 }} >Dashboard</Button>
+                <Button color="inherit" sx={{ fontWeight: 800 }} >Dashboard</Button>
             </Link>
             {
                 admin && <Box>
                     <Link to={`${url}/makeAdmin`} style={{ textDecoration: 'none', color: 'green' }}>
-                        <Button color="inherit" sx={{ fontWeight: 700 }} >Make Admin</Button>
+                        <Button color="inherit" sx={{ fontWeight: 800 }} >Make Admin</Button>
                     </Link>
                     <Link to={`${url}/addDoctor`} style={{ textDecoration: 'none', color: 'green' }}>
-                        <Button color="inherit" sx={{ fontWeight: 700 }}>Add Doctor</Button>
+                        <Button color="inherit" sx={{ fontWeight: 800 }}>Add Doctor</Button>
                     </Link>
                 </Box>
             }
